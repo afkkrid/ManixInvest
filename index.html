@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manix Mini App</title>
+  <meta name="description" content="Manix Mini App — удобное приложение для управления подписками.">
+  <meta property="og:title" content="Manix Mini App">
+  <meta property="og:description" content="Управляй своими подписками с Manix Mini App.">
+  <meta property="og:image" content="https://example.com/image.png">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="homePage" class="page active">
+    <div class="neon-container">
+      <h1 class="neon-text" onclick="openSubscriptions()">MANIX</h1>
+      <div class="orbit orbit-1">
+        <div class="ray ray-1"></div>
+      </div>
+      <div class="orbit orbit-2">
+        <div class="ray ray-2"></div>
+      </div>
+      <div class="orbit orbit-3">
+        <div class="ray ray-3"></div>
+      </div>
+    </div>
+    <div class="particles"></div>
+  </div>
+  <div id="subscriptionsPage" class="page hidden">
+    <main>
+      <section id="subscriptions">
+        <h2>Подписки</h2>
+        <div class="subscription laser-green" data-id="1">
+          <h3>MANIX</h3>
+          <p class="price">500 USDT</p>
+          <button onclick="payWithTrustWallet('TWmc2bxzWAcSmv1oj8RB1xweHt9bbE737S', 500)">Купить</button>
+        </div>
+        <div class="subscription laser-orange" data-id="2">
+          <h3>CLASSIC</h3>
+          <p class="price">1200 USDT</p>
+          <button onclick="payWithTrustWallet('TWmc2bxzWAcSmv1oj8RB1xweHt9bbE737S', 1200)">Купить</button>
+        </div>
+        <div class="subscription laser-red" data-id="3">
+          <h3>PARTNER</h3>
+          <p class="price">5000 USDT</p>
+          <button onclick="payWithTrustWallet('TWmc2bxzWAcSmv1oj8RB1xweHt9bbE737S', 5000)">Купить</button>
+        </div>
+        <!-- Кнопка "Назад" внизу под последней подпиской -->
+        <button class="back-button" onclick="goBack()">← Назад</button>
+      </section>
+    </main>
+    <div id="paymentModal" class="modal">
+      <!-- Контент модального окна будет вставлен с помощью JavaScript -->
+    </div>
+  </div>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
