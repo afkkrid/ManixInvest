@@ -1,7 +1,4 @@
-// Инициализация Telegram Web App
 const tg = window.Telegram.WebApp;
-
-// Развернуть приложение на весь экран
 tg.expand();
 
 // Плавный переход на страницу подписок
@@ -24,14 +21,14 @@ function goBack() {
   }, 500);
 }
 
-// Показ модального окна с оплатой
-function showPayment(walletAddress) {
+// Показ модального окна с QR-кодом
+function showPayment(walletAddress, amountInUSDT) {
   document.getElementById('walletAddress').textContent = walletAddress;
   document.getElementById('qrcode').innerHTML = '';
   new QRCode(document.getElementById('qrcode'), {
-    text: walletAddress,
-    width: 128,
-    height: 128,
+    text: `ethereum:${walletAddress}?value=${amountInUSDT}&currency=USDT`, // Формат для Trust Wallet
+    width: 200, // Размер QR-кода
+    height: 200,
   });
   document.getElementById('paymentModal').classList.add('active');
 }
@@ -91,40 +88,10 @@ function addToHistory(amount) {
   document.getElementById('historyList').appendChild(listItem);
 }
 
-// Функция для открытия Trust Wallet с транзакцией
-function openTrustWallet(walletAddress, amountInUSDT) {
-  const trustWalletDeepLink = `https://link.trustwallet.com/send?address=${walletAddress}&amount=${amountInUSDT}&currency=USDT`;
-  window.location.href = trustWalletDeepLink;
-
-  setTimeout(() => {
-    if (document.hidden) return;
-    showInstallTrustWalletModal();
-  }, 500);
-}
-
-// Функция для показа модального окна с ссылкой на установку Trust Wallet
-function showInstallTrustWalletModal() {
-  const modalContent = `
-    <div class="modal-content">
-      <span class="close" onclick="closeModal()">&times;</span>
-      <h2>Установи Trust Wallet</h2>
-      <p>Для оплаты необходимо установить Trust Wallet.</p>
-      <a href="https://trustwallet.com/download" target="_blank" class="install-button">Установить Trust Wallet</a>
-    </div>
-  `;
-
-  const modal = document.getElementById('paymentModal');
-  modal.innerHTML = modalContent;
-  modal.classList.add('active');
-}
-
 // Функция оплаты через Trust Wallet
 function payWithTrustWallet(walletAddress, amountInUSDT) {
-  if (typeof window.ethereum !== 'undefined') {
-    openTrustWallet(walletAddress, amountInUSDT);
-  } else {
-    showInstallTrustWalletModal();
-  }
+  // Показываем модальное окно с QR-кодом
+  showPayment(walletAddress, amountInUSDT);
 }
 
 // Закрытие Mini App
